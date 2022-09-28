@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>Lyric Finder</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Whose Lyric Is That Anyway???!?!??!</h1>
+      <span class="subtitle">Amanda where are you</span>
+    </header>
+
+    <div class="container-fluid">
+      <form id="user-form" class="card-body">
+        <label class="form-label" for="username">Placeholder</label>
+        <input
+          name="username"
+          id="username"
+          type="text"
+          autofocus="true"
+          class="form-input"
+        />
+        <button type="submit" class="btn">Get Lyrics</button>
+      </form>
+    </div>
+    <div class="results flex-box">
+      <!-- generate in JS? -->
+      <!-- hard code? -->
+        <div id="song-name">Don't Stop Believin'</div>
+        <div id="artist-name">Journey</div>
+        <div id="spotify-link">spotify link</div>
+        <div id="lyrics-btn">Display lyrics</div>
+        <div id="lyric-scroll">Never gunna give you up, never gunna let you down</div>
+    </div>
+
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
