@@ -15,30 +15,32 @@
   <body>
     <header class="header">
       <h1>Whose Lyric Is That Anyway???!?!??!</h1>
-      <span class="subtitle">Amanda where are you</span>
+      <span class="subtitle">Search for songs by bits of lyrics</span>
     </header>
 
     <div class="container-fluid">
       <form id="user-form" class="card-body">
-        <label class="form-label" for="username">Placeholder</label>
+        <label class="form-label" for="username">Type them lyrics doo ~~></label>
         <input
-          name="username"
-          id="username"
+          name="lyric-search"
+          id="search-terms"
           type="text"
           autofocus="true"
           class="form-input"
         />
-        <button type="submit" class="btn">Get Lyrics</button>
+        <button type="submit" class="btn">Get them lyrics</button>
       </form>
     </div>
     <div class="results flex-box">
       <!-- generate in JS? -->
       <!-- hard code? -->
-        <div id="song-name">Don't Stop Believin'</div>
-        <div id="artist-name">Journey</div>
-        <div id="spotify-link">spotify link</div>
-        <div id="lyrics-btn">Display lyrics</div>
-        <div id="lyric-scroll">Never gunna give you up, never gunna let you down</div>
+        <div id="song-name" class="result">Never Gunna Give You Up</div>
+        <div id="artist-name" class="result">Rick Astley</div>
+        <div id="lyric-scroll" class="result">We're no strangers to loooooooove</div>
+        <br>
+        <div id="spotify-link">placeholder events button</div>
+
+
     </div>
 
     <script src="./assets/script.js"></script>

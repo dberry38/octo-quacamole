@@ -1,9 +1,26 @@
 * {
     margin: 0;
-    background-color: cornflowerblue;
+
 }
 
 body {
     margin: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: cornflowerblue;
+}
+
+.btn {
+
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    scale: 1.5;
+    margin-left: -15px;
+}
+
+
+
+.result {
+    font-size: 28px;
 }
