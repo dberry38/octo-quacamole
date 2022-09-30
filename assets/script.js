@@ -43,8 +43,10 @@ const options = {
 
 
 // TODO:
-// TODO: INCLUDE MORE RESULTS
+// TODO: refactor queryLyrics; add localstorage
 // TODO:
+
+// ---maybe do---
 // Occasionally shazam's top result will be a remix. I think the easiest solution is to have more results display, to make it more likely the original song will at least be visible.
 
 var queryLyrics = function (searchTerms) {
@@ -59,7 +61,8 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
                 console.log(data.tracks.hits[0].track.title);
 
                 // displaying song and artist
-                songName.innerHTML = data.tracks.hits[0].track.title;
+                currentSongName = data.tracks.hits[0].track.title;
+                songName.innerHTML = currentSongName;
                 currentArtistName = data.artists.hits[0].artist.name;
                 artistName.innerHTML = currentArtistName;
 
@@ -77,7 +80,11 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
                 topResultCard.style.backgroundImage = "url('" + artistImage + "')";
 
                 // send artist name to seatgeek to query upcoming events.
-                querySeatgeek(currentArtistName);
+                // replace method removes special characters, to prevent making the seatgeek url all gummed up.
+                querySeatgeek(currentArtistName.replace(/[^a-z0-9,. ]/gi, ''));
+                storeRecentQuery(currentArtistName, currentSongName);
+
+
             })
         }
     })
@@ -85,12 +92,6 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
 };
 
 
-
-// TODO:
-// TODO:  THERE IS A BUG with seatgeek
-// TODO:
-//If the artist name contains "&" (King Gizzard & The Lizard Wizard), it will interpret this character as URL syntax and cause an error.
-// I have no idea how to tell it to change "&" to "and" before passing it to seatgeek but that's gotta be what we need to do. 
 
 var querySeatgeek = function (currentArtistName) {
   var clientId = 'Mjk0MDgzNjF8MTY2NDQxODE0Mi4zNTAzNjUy';
@@ -100,7 +101,7 @@ fetch(seatgeekApiUrl)
   .then(function(response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
+        // console.log(data);
 
         // determines response based on whether or not there are any known events.
         if (data.events.length === 0) {
@@ -119,4 +120,76 @@ fetch(seatgeekApiUrl)
   })
 };
 
+
+
+var dataArray = [];
+const mostRecent = document.querySelector("#most-recent");
+const nextRecent = document.querySelector("#next-recent");
+const lastRecent = document.querySelector("#last-recent");
+const allRecentBtns = document.querySelector(".recent-btn");
+
+
+
+var storeRecentQuery = function (currentArtistName, currentSongName) {
+    var searchData = {
+      Artist: currentArtistName, 
+      Song: currentSongName
+    };
+
+    //This limits the array size to three, for three recent searches. It puts the latest search at the front of the array.
+    dataArray.unshift(searchData);
+    if (dataArray.length > 3) {
+      dataArray.pop();
+    };
+
+    localStorage.setItem("recentSearches", JSON.stringify(dataArray));
+    init();
+}
+
+
+
+var init = function() {
+
+  dataArray = JSON.parse(localStorage.getItem("recentSearches"));
+
+  console.log(dataArray);
+
+  if (dataArray.length == 1) {
+  mostRecent.children[0].innerHTML = dataArray[0].Song;
+  mostRecent.children[1].innerHTML = dataArray[0].Artist;
+
+  } else if (dataArray.length == 2) {
+  mostRecent.children[0].innerHTML = dataArray[0].Song;
+  mostRecent.children[1].innerHTML = dataArray[0].Artist;
+
+  nextRecent.children[0].innerHTML = dataArray[1].Song;
+  nextRecent.children[1].innerHTML = dataArray[1].Artist;
+
+  } else {
+  mostRecent.children[0].innerHTML = dataArray[0].Song;
+  mostRecent.children[1].innerHTML = dataArray[0].Artist;
+  
+  nextRecent.children[0].innerHTML = dataArray[1].Song;
+  nextRecent.children[1].innerHTML = dataArray[1].Artist;
+  
+  lastRecent.children[0].innerHTML = dataArray[2].Song;
+  lastRecent.children[1].innerHTML = dataArray[2].Artist;
+  }
+
+};
+
+var mostrecentsong = document.querySelector("#mostrecentsong")
 userForm.addEventListener("submit", formSubmitHandler);
+mostRecent.addEventListener("click", goToRecent);
+
+
+var goToRecent = function (event) {
+  event.preventDefault;
+  console.log("clicked");
+  var songReference = mostrecentsong;
+  queryLyrics(songReference);
+}
+
+
+
+init();
