@@ -40,6 +40,10 @@ body {
     padding: 5px;
 }
 
+.hidden {
+    display: none;
+}
+
 .result {
     font-size: 36px;
     text-align: center;

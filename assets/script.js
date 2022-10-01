@@ -10,6 +10,7 @@ const lyricScroll = document.querySelector('#lyric-snippet');
 
 
 
+
 var formSubmitHandler = function (event) {
     event.preventDefault();
 
@@ -32,6 +33,9 @@ var formSubmitHandler = function (event) {
 
 
 
+
+
+
 const options = {
 	method: 'GET',
 	headers: {
@@ -42,10 +46,7 @@ const options = {
 
 
 
-// TODO:
-// TODO: refactor queryLyrics; add localstorage
-// TODO:
-
+// TODO
 // ---maybe do---
 // Occasionally shazam's top result will be a remix. I think the easiest solution is to have more results display, to make it more likely the original song will at least be visible.
 
@@ -63,7 +64,7 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
                 // displaying song and artist
                 currentSongName = data.tracks.hits[0].track.title;
                 songName.innerHTML = currentSongName;
-                currentArtistName = data.artists.hits[0].artist.name;
+                currentArtistName = data.tracks.hits[0].track.subtitle;
                 artistName.innerHTML = currentArtistName;
 
                 // display snippet if available
@@ -82,7 +83,7 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
                 // send artist name to seatgeek to query upcoming events.
                 // replace method removes special characters, to prevent making the seatgeek url all gummed up.
                 querySeatgeek(currentArtistName.replace(/[^a-z0-9,. ]/gi, ''));
-                storeRecentQuery(currentArtistName, currentSongName);
+                storeRecentQuery(currentArtistName, currentSongName, searchTerms);
 
 
             })
@@ -90,6 +91,9 @@ fetch('https://shazam.p.rapidapi.com/search?term=' + searchTerms + '&locale=en-U
     })
 
 };
+
+
+
 
 
 
@@ -122,20 +126,28 @@ fetch(seatgeekApiUrl)
 
 
 
+
+
 var dataArray = [];
 const mostRecent = document.querySelector("#most-recent");
 const nextRecent = document.querySelector("#next-recent");
 const lastRecent = document.querySelector("#last-recent");
 const allRecentBtns = document.querySelector(".recent-btn");
+// var mostRecentSong = document.querySelector("#mostrecentsong")
 
 
 
-var storeRecentQuery = function (currentArtistName, currentSongName) {
+var storeRecentQuery = function (currentArtistName, currentSongName, searchTerms) {
     var searchData = {
       Artist: currentArtistName, 
-      Song: currentSongName
+      Song: currentSongName,
+      Terms: searchTerms
     };
 
+    // This monstrosity prevents changes to the recent buttons if you click on one of them (prevents repeats)
+    if (searchData.Terms == dataArray[0].Terms || searchData.Terms == dataArray[1].Terms || searchData.Terms == dataArray[2].Terms) {
+      return;
+    } else {
     //This limits the array size to three, for three recent searches. It puts the latest search at the front of the array.
     dataArray.unshift(searchData);
     if (dataArray.length > 3) {
@@ -144,51 +156,78 @@ var storeRecentQuery = function (currentArtistName, currentSongName) {
 
     localStorage.setItem("recentSearches", JSON.stringify(dataArray));
     init();
-}
+    }
+  };
 
 
 
+
+
+// this function is populating the recent search buttons the way I want, but looks ridiculous. Currently unable (unwilling) to figure out a for loop setup.
 var init = function() {
 
   dataArray = JSON.parse(localStorage.getItem("recentSearches"));
 
   console.log(dataArray);
 
+
   if (dataArray.length == 1) {
   mostRecent.children[0].innerHTML = dataArray[0].Song;
   mostRecent.children[1].innerHTML = dataArray[0].Artist;
+  mostRecent.children[2].innerHTML = dataArray[0].Terms;
+
 
   } else if (dataArray.length == 2) {
   mostRecent.children[0].innerHTML = dataArray[0].Song;
   mostRecent.children[1].innerHTML = dataArray[0].Artist;
+  mostRecent.children[2].innerHTML = dataArray[0].Terms;
 
   nextRecent.children[0].innerHTML = dataArray[1].Song;
   nextRecent.children[1].innerHTML = dataArray[1].Artist;
+  nextRecent.children[2].innerHTML = dataArray[1].Terms;
 
   } else {
   mostRecent.children[0].innerHTML = dataArray[0].Song;
   mostRecent.children[1].innerHTML = dataArray[0].Artist;
+  mostRecent.children[2].innerHTML = dataArray[0].Terms;
+
   
   nextRecent.children[0].innerHTML = dataArray[1].Song;
   nextRecent.children[1].innerHTML = dataArray[1].Artist;
+  nextRecent.children[2].innerHTML = dataArray[1].Terms;
+
   
   lastRecent.children[0].innerHTML = dataArray[2].Song;
   lastRecent.children[1].innerHTML = dataArray[2].Artist;
-  }
-
+  lastRecent.children[2].innerHTML = dataArray[2].Terms;
+}
 };
 
-var mostrecentsong = document.querySelector("#mostrecentsong")
-userForm.addEventListener("submit", formSubmitHandler);
-mostRecent.addEventListener("click", goToRecent);
 
 
-var goToRecent = function (event) {
-  event.preventDefault;
-  console.log("clicked");
-  var songReference = mostrecentsong;
+
+// Using the stored search terms to pull up the exact result upon clicking the recent search buttons.
+var goToMostRecent = function () {
+  var songReference = mostRecent.children[2].innerHTML;
   queryLyrics(songReference);
-}
+};
+
+var goToNextRecent = function () {
+  var songReference = nextRecent.children[2].innerHTML;
+  queryLyrics(songReference);
+};
+
+var goToLastRecent = function () {
+  var songReference = lastRecent.children[2].innerHTML;
+  queryLyrics(songReference);
+};
+
+
+
+userForm.addEventListener("submit", formSubmitHandler);
+mostRecent.addEventListener("click", goToMostRecent);
+nextRecent.addEventListener("click", goToNextRecent);
+lastRecent.addEventListener("click", goToLastRecent);
 
 
 
