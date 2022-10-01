@@ -10,14 +10,56 @@ body {
     background-color: cornflowerblue;
 }
 
-.btn {
+.subtitle {
+    font-size: 20px;
+}
 
-    transition: all 0.4s ease-in-out;
+.search-container {
+    margin: 40px 0 0 0;
+}
+
+
+/* now im just wasting time */
+@keyframes search-glow {
+    0% {background-image: linear-gradient(red, black); color: blue}
+    20% {background-image: linear-gradient(green, black); color: orange}
+    33% {background-image: linear-gradient(cyan, black); color: red}
+    50% {background-image: linear-gradient(darkorange, black); color: magenta}
+    67% {background-image: linear-gradient(magenta, black); color: green}
+    80% {background-image: linear-gradient(yellow, black); color: purple}
+    100% {background-image: linear-gradient(red, black); color: green}
+}
+
+#search-terms {
+    font-size: 24px;
+    text-align: center;
+    color: rgb(255, 226, 119);
+    background-color: rgb(255, 81, 0);
+    animation-name: search-glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.btn {
+    height: 24px;
+    transition: all 0.6s ease-in-out;
 }
 
 .btn:hover {
-    scale: 1.5;
-    margin-left: -15px;
+    rotate: 360deg;
+}
+
+.recent-btn {
+    transition: all 0.4s ease-in-out;
+}
+
+.recent-btn:hover {
+    scale: 1.2;
+    animation-name: search-glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 #recent-p {
@@ -26,7 +68,7 @@ body {
 }
 
 .recent-boxes-container {
-    margin: 10px 0px;
+    margin: 38px 0px;
     display: flex;
     justify-content: center;
 }
@@ -38,6 +80,7 @@ body {
 
 .recent-btn {
     padding: 5px;
+    max-height: 69px;
 }
 
 .hidden {
