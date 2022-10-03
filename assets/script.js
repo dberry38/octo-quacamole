@@ -144,10 +144,12 @@ var storeRecentQuery = function (
 
   // This monstrosity prevents changes to the recent buttons if you click on one of them (prevents repeats)
   //It does not prevent repeats if you enter the same search terms but one or two charactrers off, or a different line of lyrics from the same song.
+  if (!dataArray) dataArray = [];
+
   if (
-    searchData.Terms == dataArray[0].Terms ||
-    searchData.Terms == dataArray[1].Terms ||
-    searchData.Terms == dataArray[2].Terms
+    (!!dataArray[0] && searchData.Terms == dataArray[0].Terms) ||
+    (!!dataArray[1] && searchData.Terms == dataArray[1].Terms) ||
+    (!!dataArray[2] && searchData.Terms == dataArray[2].Terms)
   ) {
     return;
   } else {
@@ -172,6 +174,7 @@ var init = function () {
 
   console.log(dataArray);
 
+  if (!dataArray) return;
 
   //these three if statements populate the recent buttons. It used to be way longer and uglier.
   if (dataArray[0]) {

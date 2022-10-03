@@ -7,13 +7,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./materialize/css/materialize.css" />
     <title>Lyric Finder</title>
+    <!-- Foundation Framework -->
+    <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+	<script src="./foundation-css/js/vendor/custom.modernizr.js"></script>
   </head>
-  <body>
+  <body style="background-color: darkslategray; color: white">
     <header class="header">
-      <h1>Whose Lyric Is That Anyway???!?!??!</h1>
-      <span class="subtitle">Search for songs by bits of lyrics</span>
+      <h1>Whose Lyric Is That Anyway?</h1>
+      <span class="subtitle">Search for songs with bits of lyrics</span>
     </header>
 
     <div class="container-fluid search-container">
@@ -31,25 +33,25 @@
       </form>
     </div>
 
-    <div class="row recent-boxes-container">
+    <div class="row recent-boxes-container" style="color: black; ">
       <p id="recent-p">Recent Searches:</p>
       <div id="button-container" class="recent-boxes">
         <div class="recent-boxes">
-          <button class="recent-btn" id="most-recent">
+          <button class="recent-btn" id="most-recent" style="background-color: lightblue">
             <p>song</p>
             <p>artist</p>
             <p class="hidden"></p>
           </button>
         </div>
         <div class="recent-boxes">
-          <button class="recent-btn" id="next-recent">
+          <button class="recent-btn" id="next-recent" style="background-color: lightblue">
             <p>song</p>
             <p>artist</p>
             <p class="hidden"></p>
           </button>
         </div>
         <div class="recent-boxes">
-          <button class="recent-btn" id="last-recent">
+          <button class="recent-btn" id="last-recent" style="background-color: lightblue">
             <p>song</p>
             <p>artist</p>
             <p class="hidden"></p>
@@ -75,6 +77,15 @@
     </div>
 
     <script src="./assets/script.js"></script>
-    <script src="./materialize/js/materialize.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+<!-- this will include every plugin and utility required by Foundation -->
+	<script src="./foundation-css/js/vendor/jquery.js"></script>
+   <!-- jQuery must be imported before Foundation -->
+	<script src="./foundation-css/js/vendor/foundation.min.js"></script>
+
+	<script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
