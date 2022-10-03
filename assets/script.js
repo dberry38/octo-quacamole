@@ -42,12 +42,9 @@ const options = {
   },
 };
 
-// TODO
-// ---maybe do---
-// Occasionally shazam's top result will be a remix. I think the easiest solution is to have more results display, to make it more likely the original song will at least be visible.
+
 
 var queryLyrics = function (searchTerms) {
-  console.log(searchTerms);
 
   fetch(
     "https://shazam.p.rapidapi.com/search?term=" +
@@ -101,7 +98,6 @@ var querySeatgeek = function (currentArtistName) {
   fetch(seatgeekApiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        // console.log(data);
 
         // determines response based on whether or not there are any known events.
         if (data.events.length === 0) {
@@ -168,11 +164,9 @@ var storeRecentQuery = function (
 
 
 
-// this function is populating the recent search buttons the way I want, but looks ridiculous. Currently unable (unwilling) to figure out a for loop setup.
+// displaying info on recent search buttons
 var init = function () {
   dataArray = JSON.parse(localStorage.getItem("recentSearches"));
-
-  console.log(dataArray);
 
   if (!dataArray) return;
 

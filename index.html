@@ -4,13 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Lyric Finder</title>
     <!-- Foundation Framework -->
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
-	<script src="./foundation-css/js/vendor/custom.modernizr.js"></script>
   </head>
   <body style="background-color: darkslategray; color: white">
     <header class="header">
@@ -18,6 +16,8 @@
       <span class="subtitle">Search for songs with bits of lyrics</span>
     </header>
 
+
+    <!-- Search form -->
     <div class="container-fluid search-container">
       <form id="user-form" class="card-body">
         <label class="form-label" for="username"></label>
@@ -29,10 +29,14 @@
           class="form-input"
           placeholder="~Enter your search here~"
         />
-        <button type="submit" class="btn">Get them lyrics</button>
+        <div class="center-btn">
+          <button type="submit" class="btn">Get them lyrics</button>
+        </div>
       </form>
     </div>
 
+
+    <!-- Recent search button -->
     <div class="row recent-boxes-container" style="color: black; ">
       <p id="recent-p">Recent Searches:</p>
       <div id="button-container" class="recent-boxes">
@@ -62,10 +66,9 @@
       
     </div>
 
+
+      <!-- Result card -->
     <div class="results flex-box">
-      <!-- generate in JS? -->
-      <!-- hard code? -->
-      <!-- hard code it is then -->
       <div id="first-result">
         <div id="song-name" class="result">song title</div>
         <div id="artist-name" class="result">artist</div>
@@ -77,15 +80,5 @@
     </div>
 
     <script src="./assets/script.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-<!-- this will include every plugin and utility required by Foundation -->
-	<script src="./foundation-css/js/vendor/jquery.js"></script>
-   <!-- jQuery must be imported before Foundation -->
-	<script src="./foundation-css/js/vendor/foundation.min.js"></script>
-
-	<script>
-      $(document).foundation();
-    </script>
   </body>
 </html>
