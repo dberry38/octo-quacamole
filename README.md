@@ -10,7 +10,7 @@ As a music connoisseur
 
 I want to research songs by typing in the title of the track or partial lyrics
 
-So that I can find lyrics to the track and listen to it on Spotify. 
+So that I can find relevant information regarding the search and see any nearby concerts where the relevant artist is performing. 
 
 ## Technologies Used
 
@@ -38,11 +38,14 @@ the song title, artist name, and if there are any nearby concert where the artis
  
 ## Credits
 
-[David Berry](https://github.com/dberry38)
-
 [Alex Lee](https://github.com/ayesslee)
 
 [Alice Nouhouemale](https://github.com/Alicenouhouemale)
+
+[Amanda Kautzky](https://github.com/AmandaDaria91)
+
+[David Berry](https://github.com/dberry38)
+
 
 ## License
 
